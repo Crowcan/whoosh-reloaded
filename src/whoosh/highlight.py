@@ -198,7 +198,7 @@ def set_matched_filter_phrases(tokens, text, terms, phrases):
     of Token indices (the matches set). The yield loop at the end uses this
     to properly set .matched on the yielded Token objects.
     """
-    text = text.split()
+    text = text.lower().split()
     matches = set()
 
     # Match phrases
