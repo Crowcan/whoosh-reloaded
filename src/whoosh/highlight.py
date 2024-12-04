@@ -270,18 +270,18 @@ def set_matched_filter_phrases(tokens, text, terms, phrases):
 
 
     # Match individual terms
-    # for i, word in enumerate(text):
-    #     for term in terms:
-    #         term_text = trailing_punctuation_re.sub("", term.text).lower()
-    #         if term_text == word:
-    #             matches.add(i)
-    #             break
-
     for i, word in enumerate(text):
-          for term in terms:
-              if term.text == word:
-                  matches.add(i)
-                  break
+        for term in terms:
+            term_text = trailing_punctuation_re.sub("", term.text).lower()
+            if term_text == word:
+                matches.add(i)
+                break
+
+    # for i, word in enumerate(text):
+    #       for term in terms:
+    #           if term.text == word:
+    #               matches.add(i)
+    #               break
 
     for i, t in enumerate(tokens):
         t.matched = i in matches
