@@ -198,7 +198,16 @@ def set_matched_filter_phrases(tokens, text, terms, phrases):
     of Token indices (the matches set). The yield loop at the end uses this
     to properly set .matched on the yielded Token objects.
     """
-    text = text.lower().split()
+  
+    # Define a regular expression to remove only trailing punctuation
+    trailing_punctuation_re = re.compile(r"[:;,.!?]+$")
+
+    # Normalize text: lowercasing and removing only trailing punctuation
+    text = [
+        trailing_punctuation_re.sub("", word).lower() for word in text.split()
+    ]
+  
+    # text = text.lower().split()
     matches = set()
 
     # Match phrases
@@ -258,12 +267,20 @@ def set_matched_filter_phrases(tokens, text, terms, phrases):
             else:
                 i += 1
 
+
     # Match individual terms
     for i, word in enumerate(text):
         for term in terms:
-            if term.text == word:
+            term_text = trailing_punctuation_re.sub("", term.text).lower()
+            if term_text == word:
                 matches.add(i)
                 break
+
+    # for i, word in enumerate(text):
+    #       for term in terms:
+    #           if term.text == word:
+    #               matches.add(i)
+    #               break
 
     for i, t in enumerate(tokens):
         t.matched = i in matches
