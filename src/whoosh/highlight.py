@@ -48,6 +48,7 @@ The highlighting system has four main elements.
 See :doc:`/highlight` for more information.
 """
 
+import re
 
 from collections import deque
 from heapq import nlargest
